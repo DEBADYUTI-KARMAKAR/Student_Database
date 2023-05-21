@@ -24,7 +24,7 @@ public class Student {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     public String getStudentId() {
         return studentId;
     }

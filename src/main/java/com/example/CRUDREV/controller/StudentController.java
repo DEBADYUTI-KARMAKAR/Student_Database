@@ -1,21 +1,37 @@
 package com.example.CRUDREV.controller;
 
 
-import com.example.CRUDREV.service.StudentService;
+import com.example.CRUDREV.model.Student;
+import com.example.CRUDREV.repository.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
 public class StudentController {
 
     @Autowired
-    private StudentService studentService;
+    private StudentRepo studentRepo;
 
     @RequestMapping()
     public String home(){
         return "Welcome to Unmeshanam";
     }
+
+    @PostMapping
+    public Student createEmployee( @RequestBody Student employee) {
+        return studentRepo.save(employee);
+
+    }
+    @GetMapping
+    public List<Student> getAllStudents(){
+        return studentRepo.findAll();
+    }
+
+
+
 
 }
