@@ -1,13 +1,13 @@
 package com.example.CRUDREV.controller;
 
 
+import com.example.CRUDREV.exception.ResourceNotFound;
 import com.example.CRUDREV.model.Student;
 import com.example.CRUDREV.repository.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.JstlUtils;
 
 import java.util.List;
 
@@ -33,7 +33,14 @@ public class StudentController {
         return studentRepo.findAll();
     }
 
-    
+    @GetMapping("/{id}")
+    public ResponseEntity<Student> getStudentById(@PathVariable String id) throws ResourceNotFound{
+
+        Student student = studentRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFound(("Student not found for this id :"+id)));
+        return ResponseEntity.ok().body(student);
+    }
+
 
 
 
