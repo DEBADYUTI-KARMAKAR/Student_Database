@@ -5,7 +5,9 @@ import com.example.CRUDREV.model.Student;
 import com.example.CRUDREV.repository.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.JstlUtils;
 
 import java.util.List;
 
@@ -22,14 +24,17 @@ public class StudentController {
     }
 
     @PostMapping
-    public Student createEmployee( @RequestBody Student employee) {
-        return studentRepo.save(employee);
+    public Student createEmployee( @RequestBody Student student) {
+        return studentRepo.save(student);
 
     }
     @GetMapping
     public List<Student> getAllStudents(){
         return studentRepo.findAll();
     }
+
+    
+
 
 
 
