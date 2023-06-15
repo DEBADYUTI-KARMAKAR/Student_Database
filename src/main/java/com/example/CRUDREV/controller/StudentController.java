@@ -10,7 +10,10 @@ import org.springframework.boot.context.config.ConfigDataResourceNotFoundExcepti
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.module.ResolutionException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/student")
@@ -57,6 +60,18 @@ public class StudentController {
     }
 
 
+
+    @DeleteMapping("/{id}")
+    public Map<String,Boolean> deleteStudent(@PathVariable(value = "id") String studentId) throws ResourceNotFound{
+        Student student = studentRepo.findById(studentId).orElseThrow(()->new ResolutionException("Student is not found with this is:"+studentId));
+
+        studentRepo.delete(student);
+        Map<String,Boolean> response = new HashMap<>();
+        response.put("Deleted",Boolean.TRUE);
+        return response;
+
+
+    }
 
 
 
